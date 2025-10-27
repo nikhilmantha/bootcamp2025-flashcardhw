@@ -41,10 +41,10 @@ prev.addEventListener("click", () => {
 });
 
 function updateTransform() {
-    let rotation = showingTerm ? "rotateX(0deg)" : "rotateX(-180deg)";
+    let flipped = showingTerm ? "rotateX(0deg)" : "rotateX(-180deg)";
     let scale = isHovered ? "scale(1.05)" : "scale(1)";
-    flashcard.style.transform = `${rotation} ${scale}`;
-    flashcardText.style.transform = `${rotation}`
+    flashcard.style.transform = `${flipped} ${scale}`;
+    flashcardText.style.transform = `${flipped}`
 }
 
 flashcard.addEventListener("click", () => {
