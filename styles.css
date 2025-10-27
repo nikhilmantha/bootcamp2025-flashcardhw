@@ -37,6 +37,7 @@ body {
 }
 
 #card-content {
+    transition: transform 0s;
     font-size: 1.2em;
     padding: 20px;
 }

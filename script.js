@@ -4,18 +4,70 @@ const flashcards = [
     { term: "JavaScript", definition: "Programming language of the web" }
 ];
 
-// You can use flashcards.length to get the length of the array
-
-// These two variables will come in handy
 let currentIndex = 0;
 let showingTerm = true;
+let isHovered = false;
+let flashcardText = document.getElementById("card-content");
 
-// Start with this function to simply display the card
 function displayCard() {
-
+    flashcardText.innerText = showingTerm? flashcards[currentIndex].term : flashcards[currentIndex].definition;
 }
 
-// The rest of the code you will write is apart of event listeners
+let next = document.getElementById("next-btn");
+let prev = document.getElementById("prev-btn");
+let flashcard = document.getElementById("flashcard");
+let newTerm = document.getElementById("new-term");
+let newDef = document.getElementById("new-definition");
+let addCard = document.getElementById("add-card-btn");
+
+next.addEventListener("click", () => {
+    if(!showingTerm) {
+        flashcard.click();
+    }
+    showingTerm = true;
+    currentIndex = (currentIndex + 1) % flashcards.length
+    displayCard();
+    updateTransform();
+});
+
+prev.addEventListener("click", () => {
+    if(!showingTerm) {
+        flashcard.click();
+    }
+    showingTerm = true;
+    currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length
+    displayCard();
+    updateTransform();
+});
+
+function updateTransform() {
+    let rotation = showingTerm ? "rotateX(0deg)" : "rotateX(-180deg)";
+    let scale = isHovered ? "scale(1.05)" : "scale(1)";
+    flashcard.style.transform = `${rotation} ${scale}`;
+    flashcardText.style.transform = `${rotation}`
+}
+
+flashcard.addEventListener("click", () => {
+    showingTerm = !showingTerm
+    displayCard();
+    updateTransform();
+});
+
+flashcard.addEventListener("mouseenter", () => {
+    isHovered = true;
+    updateTransform();
+});
+
+flashcard.addEventListener("mouseleave", () => {
+    isHovered = false;
+    updateTransform();
+});
+
+addCard.addEventListener("click", () => {
+    flashcards.push({ term:newTerm.value, definition:newDef.value });
+    newTerm.value = "";
+    newDef.value = "";
+});
 
 // This line will display the card when the page is refreshed
 window.onload = displayCard;
